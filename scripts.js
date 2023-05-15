@@ -72,7 +72,7 @@ const createHtml = (athlete) => {
   const fragment = document.createDocumentFragment();
 
   let title = document.createElement('h2');
-  title= id;
+  title.textContent = id;
   fragment.appendChild(title);
 
   const list = document.createElement('dl');
@@ -81,7 +81,7 @@ const createHtml = (athlete) => {
   const month = new Date (MONTHS[new Date(date).getMonth()]);
   const year = new Date (date).getFullYear();
 
-  const [first, second, third, fourth] = time;
+  const [first, second, third, fourth] = athlete.races.time;
   const total = first + second + third + fourth;
 
   const hours = total / 60;
