@@ -65,29 +65,37 @@ const data = {
 
 // Only edit below this comment
 
+/*function*/ 
 const createHtml = (athlete) => {
-  const {firstName, surname, id, races}= athlete;
-  const {date, time} = races.slice().reverse();
+  //destruct
+  const {firstName, surname, id, races }= athlete; 
+  const [date,time]= races.reverse();
 
-  const fragment = document.createDocumentFragment();
+  //fragment
+  const fragment =document.createDocumentFragment();
+    //title create 
+    const title = document.createElement('h2');
+    title.textContent=id;
+    fragment.appendChild(title);
 
-  let title = document.createElement('h2');
-  title.textContent = id;
-  fragment.appendChild(title);
+    //list create 
+    const list = document.createElement('dl');
+    
+    // date 
+    const day = new Date().getDate();
+    const month = MONTHS[new Date().date];
+    const year =  new Date().getFullYear();
 
-  const list = document.createElement('dl');
+    // time
+    
+   //const [first, second, third, fourth] = time;
+   //const total = first + second + third + fourth;
+    const total=31;
+    const rhours =total / 60;
+    const hours = Math.floor(rhours);
+    const minutes = Math.round((rhours - hours) * 60);
 
-  const day = new Date(date).getDate();
-  const month = new Date (MONTHS[new Date(date).getMonth()]);
-  const year = new Date (date).getFullYear();
-
-  const [first, second, third, fourth] = athlete.races.time;
-  const total = first + second + third + fourth;
-
-  const hours = total / 60;
-  const minutes = total / hours / 60;
-
-  list.innerHTML = /* html */ `
+    list.innerHTML = /* html */ `
     <dt>Athlete</dt>
     <dd>${firstName} ${surname}</dd>
 
@@ -98,12 +106,18 @@ const createHtml = (athlete) => {
     <dd>${day} ${month} ${year}</dd>
 
     <dt>Total Time (Latest)</dt>
-    <dd>${String(hours).padStart(2, '0')}:${String(minutes).padStart(2,'0')}</dd>
-  `;
+    <dd>${hours.toString().padStart(2, 0) }:${minutes.toString().padStart(2, 0)}</dd>`;
+    
+    fragment.appendChild(list);
 
-  fragment.appendChild(list);
 }
 
-const { NM372, SV782 } = data.response.data
-document.querySelector('[data-athlete="NM372"]').appendChild(createHtml(NM372));
-document.querySelector('[data-athlete="SV782"]').appendChild(createHtml(SV782));
+/* Destruct*/
+const {NM372,SV782}= data.response.data;
+
+/*calling function */
+createHtml(SV782);
+
+//document.querySelector().appendChild(createHtml(NM372));
+//document.querySelector(SV782).appendChild(createHtml(SV782));
+
