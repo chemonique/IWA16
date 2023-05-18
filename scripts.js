@@ -90,17 +90,18 @@ const createHtml = (athlete) => {
     
    //const [first, second, third, fourth] = time;
    //const total = first + second + third + fourth;
-    const total=31;
+    const total=91;
     const rhours =total / 60;
     const hours = Math.floor(rhours);
     const minutes = Math.round((rhours - hours) * 60);
 
+    
     list.innerHTML = /* html */ `
     <dt>Athlete</dt>
     <dd>${firstName} ${surname}</dd>
 
     <dt>Total Races</dt>
-    <dd>${races}</dd>
+    <dd>${races.length    }</dd>
 
     <dt>Event Date (Latest)</dt>
     <dd>${day} ${month} ${year}</dd>
@@ -109,6 +110,7 @@ const createHtml = (athlete) => {
     <dd>${hours.toString().padStart(2, 0) }:${minutes.toString().padStart(2, 0)}</dd>`;
     
     fragment.appendChild(list);
+   
 
 }
 
@@ -116,8 +118,8 @@ const createHtml = (athlete) => {
 const {NM372,SV782}= data.response.data;
 
 /*calling function */
-createHtml(SV782);
+//createHtml(SV782);
 
-//document.querySelector().appendChild(createHtml(NM372));
-//document.querySelector(SV782).appendChild(createHtml(SV782));
+document.querySelector('[data-athlete="NM372"]').append(createHtml(NM372));
+document.querySelector('[data-athlete="SV782"]').append(createHtml(SV782));
 
