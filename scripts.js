@@ -67,17 +67,12 @@ const data = {
 
 /*function*/ 
 const createHtml = (athlete) => {
-  console.log('athlete',athlete)
   //destruct
   const {firstName, surname, id, races }= athlete; 
-  console.log('firstnam',firstName)
-  console.log('races',races)
-
   const lastRace= races.pop();
   const {date,time}=lastRace
-  console.log('time',time)
-  const timeReverse = time.reverse();
-  console.log('timeR',timeReverse)
+  races.push(lastRace)
+  
 
   //fragment
   const fragment =document.createDocumentFragment();
@@ -90,15 +85,17 @@ const createHtml = (athlete) => {
     const list = document.createElement('dl');
     
     // date 
-    const day = new Date().getDate();
-    const month = MONTHS[new Date().date];
-    const year =  new Date().getFullYear();
+    const dateArray = date.split('-')
+    const dateDay= dateArray[2]
+    const day =dateDay[1] ;
+    const month = MONTHS[dateArray[1]-1];
+    const year =  dateArray[0];
 
     // time
     
    const [first, second, third, fourth] = time;
    const total = first + second + third + fourth;
-    //const total=91;
+    
     const rhours =total / 60;
     const hours = Math.floor(rhours);
     const minutes = Math.round((rhours - hours) * 60);
@@ -119,14 +116,13 @@ const createHtml = (athlete) => {
     
     fragment.appendChild(list);
    
-
+return fragment
 }
 
 /* Destruct*/
 const {NM372,SV782}= data.response.data;
 
 /*calling function */
-//createHtml(SV782);
 
 document.querySelector('[data-athlete="NM372"]').appendChild(createHtml(NM372));
 document.querySelector('[data-athlete="SV782"]').appendChild(createHtml(SV782));
